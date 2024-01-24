@@ -3,6 +3,12 @@ import styles from "./styles.module.css";
 const Categories = ({ categories, setSelectCategory, selectCategory }) => {
   return (
     <div className={styles.categories}>
+      <button
+        className={!selectCategory ? styles.active : styles.item}
+        onClick={() => setSelectCategory(null)}
+      >
+        All
+      </button>
       {categories.map((category) => {
         return (
           <button
