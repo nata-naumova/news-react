@@ -1,22 +1,31 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import NewsBanner from "../../components/NewsBanner/NewsBanner";
-import { getNews } from "../../api/apiNews";
+import { getCategory, getNews } from "../../api/apiNews";
 import NewsList from "../../components/NewsList/NewsList";
 import Skeleton from "../../components/Skeleton/Skeleton";
 import Pagination from "../../components/Pagination/Pagination";
+import Categories from "../../components/Categories/Categories";
 
 const Main = () => {
   const [news, setNews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const [categories, setCategories] = useState([]);
+  const [selectCategory, setSelectCategory] = useState("All");
+
   const totalPages = 10;
   const pageSize = 10;
 
   const fetchNews = async (currentPage) => {
     try {
       setIsLoading(true);
-      const responce = await getNews(currentPage, pageSize);
+      const responce = await getNews({
+        page_number: currentPage,
+        page_size: pageSize,
+        category: selectCategory === "All" ? null : selectCategory,
+      });
       setNews(responce.news);
       setIsLoading(false);
     } catch (error) {
@@ -24,9 +33,22 @@ const Main = () => {
     }
   };
 
+  const fetchCategories = async () => {
+    try {
+      const responce = await getCategory();
+      setCategories(["All", ...responce.categories]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
   useEffect(() => {
     fetchNews(currentPage);
-  }, [currentPage]);
+  }, [currentPage, selectCategory]);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -45,6 +67,11 @@ const Main = () => {
 
   return (
     <main className={styles.main}>
+      <Categories
+        categories={categories}
+        selectCategory={selectCategory}
+        setSelectCategory={setSelectCategory}
+      />
       {news.length > 0 && !isLoading ? (
         <NewsBanner item={news[0]} />
       ) : (
