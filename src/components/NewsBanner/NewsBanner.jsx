@@ -4,6 +4,7 @@ import Image from "../Image/Image";
 import { formatTimeAgo } from "../../helpers/formatTimeAgo";
 
 import styles from "./styles.module.css";
+import withSkeleton from "../../helpers/hocs/withSkeleton";
 
 const NewsBanner = ({ item }) => {
   return (
@@ -11,10 +12,12 @@ const NewsBanner = ({ item }) => {
       <Image image={item?.image} />
       <h3 className={styles.title}>{item.title}</h3>
       <p className={styles.extra}>
-        {formatTimeAgo(item.published)} by {item.auhtor}
+        {formatTimeAgo(item.published)} by {item.author}
       </p>
     </div>
   );
 };
 
-export default NewsBanner;
+const NewsBannerWithSkeleton = withSkeleton(NewsBanner, "banner", 1);
+
+export default NewsBannerWithSkeleton;
