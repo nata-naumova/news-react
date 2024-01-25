@@ -8,7 +8,7 @@ import NewsFilters from "../NewsFilters/NewsFilters";
 import NewsList from "../NewsList/NewsList";
 import PaginationWrapper from "../PaginationWrapper/PaginationWrapper";
 import styles from "./styles.module.css";
-import { NewsApiResponse, ParamsType } from "@/interfaces";
+import { NewsApiResponse, ParamsType } from "../../interfaces";
 
 const NewsByFilters = () => {
   const { filters, changeFilter } = useFilters({

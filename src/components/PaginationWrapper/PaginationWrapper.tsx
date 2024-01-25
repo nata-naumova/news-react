@@ -1,6 +1,6 @@
 import React from "react";
 import Pagination from "../Pagination/Pagination";
-import { IPaginationProps } from "@/interfaces";
+import { IPaginationProps } from "../../interfaces";
 
 interface Props {
   top?: boolean;
