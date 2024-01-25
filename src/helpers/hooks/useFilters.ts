@@ -1,4 +1,4 @@
-import { IFilters } from "@/interfaces";
+import { IFilters } from "../../interfaces";
 import { useState } from "react";
 
 export const useFilters = (initialFilters: IFilters) => {
