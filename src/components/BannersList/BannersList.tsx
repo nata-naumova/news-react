@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles.module.css";
 import withSkeleton from "../../helpers/hocs/withSkeleton";
 import NewsBanner from "../NewsBanner/NewsBanner";
-import { INews } from "@/interfaces";
+import { INews } from "../../interfaces";
 
 interface Props {
   banners?: INews[] | null;
